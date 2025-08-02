@@ -4,91 +4,83 @@
 #include <cstdint>
 #include <string>
 
-// SM4Ëã·¨ÊµÏÖÀà
+// SM4ç®—æ³•å®ç°ç±»
 class SM4 {
 public:
-    // ¼ÓÃÜÄ£Ê½
+    // åŠ å¯†æ¨¡å¼
     enum Mode {
-        ECB,    // ECBÄ£Ê½
-        CBC     // CBCÄ£Ê½
+        ECB,    // ECBæ¨¡å¼
+        CBC     // CBCæ¨¡å¼
     };
 
-    // ¹¹Ôìº¯Êı£¬´«ÈëÃÜÔ¿
+    // æ„é€ å‡½æ•°ï¼Œä¼ å…¥å¯†é’¥
     SM4(const uint8_t* key, Mode mode = ECB);
 
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     ~SM4() = default;
 
-    // ÉèÖÃCBCÄ£Ê½µÄ³õÊ¼ÏòÁ¿
+    // è®¾ç½®CBCæ¨¡å¼çš„åˆå§‹å‘é‡
     void setIV(const uint8_t* iv);
 
-    // ¼ÓÃÜº¯Êı£¬·µ»Ø¼ÓÃÜºóµÄÊı¾İ³¤¶È
+    // åŠ å¯†å‡½æ•°ï¼Œè¿”å›åŠ å¯†åçš„æ•°æ®é•¿åº¦
     int encrypt(const uint8_t* plaintext, int length, uint8_t* ciphertext);
 
-    // ¼ÓÃÜµ¥×éÊı¾İ
+    // åŠ å¯†å•ç»„æ•°æ®
     void encryptBlock(const uint8_t* input, uint8_t* output);
 
-    // ½âÃÜµ¥×éÊı¾İ
+    // è§£å¯†å•ç»„æ•°æ®
     void decryptBlock(const uint8_t* input, uint8_t* output);
 
-    // ½âÃÜº¯Êı£¬·µ»Ø½âÃÜºóµÄÊı¾İ³¤¶È
+    // è§£å¯†å‡½æ•°ï¼Œè¿”å›è§£å¯†åçš„æ•°æ®é•¿åº¦
     int decrypt(const uint8_t* ciphertext, int length, uint8_t* plaintext);
 
 private:
-    // SºĞ
+    // Sç›’
     static const uint8_t Sbox[256];
 
-    // ·´SºĞ
-    static const uint8_t invSbox[256];
-
-    // ÏµÍ³²ÎÊıFK
+    // ç³»ç»Ÿå‚æ•°FK
     static const uint32_t FK[4];
 
-    // ¹Ì¶¨²ÎÊıCK
+    // å›ºå®šå‚æ•°CK
     static const uint32_t CK[32];
 
-    // ÂÖÃÜÔ¿
+    // è½®å¯†é’¥
     uint32_t rk[32];
 
-    // ³õÊ¼ÏòÁ¿
+    // åˆå§‹å‘é‡
     uint8_t iv[16];
 
-    // ¼ÓÃÜÄ£Ê½
+    // åŠ å¯†æ¨¡å¼
     Mode mode;
 
-    // ÃÜÔ¿À©Õ¹º¯Êı
+    // å¯†é’¥æ‰©å±•å‡½æ•°
     void keyExpansion(const uint8_t* key);
 
-    // ÂÖº¯Êı
+    // è½®å‡½æ•°
     uint32_t F(uint32_t X0, uint32_t X1, uint32_t X2, uint32_t X3, uint32_t rk);
 
-    // ·ÇÏßĞÔ±ä»»¦Ó
+    // éçº¿æ€§å˜æ¢Ï„
     uint32_t tau(uint32_t a);
 
-    // ÏßĞÔ±ä»»L
+    // çº¿æ€§å˜æ¢L
     uint32_t L(uint32_t b);
 
-    // ÏßĞÔ±ä»»L'£¬ÓÃÓÚÃÜÔ¿À©Õ¹
+    // çº¿æ€§å˜æ¢L'ï¼Œç”¨äºå¯†é’¥æ‰©å±•
     uint32_t LPrime(uint32_t b);
 
-    // ·ÇÏßĞÔ±ä»»S
+    // éçº¿æ€§å˜æ¢S
     uint8_t S(uint8_t inch);
 
-    // ·´·ÇÏßĞÔ±ä»»S
-    uint8_t invS(uint8_t inch);
-
-    // 32Î»Òì»ò·ÇÏßĞÔ±ä»»
+    // 32ä½å¼‚æˆ–éçº¿æ€§å˜æ¢
     uint32_t T(uint32_t a);
 
-    // 32Î»Òì»ò·ÇÏßĞÔ±ä»»£¬ÓÃÓÚÃÜÔ¿À©Õ¹
+    // 32ä½å¼‚æˆ–éçº¿æ€§å˜æ¢ï¼Œç”¨äºå¯†é’¥æ‰©å±•
     uint32_t TPrime(uint32_t a);
 
-
-
-    // ×Ö½ÚÊı×é×ª32Î»ÎŞ·ûºÅÕûÊı
+    // å­—èŠ‚æ•°ç»„è½¬32ä½æ— ç¬¦å·æ•´æ•°
     uint32_t bytesToWord(const uint8_t* bytes);
 
-    // 32Î»ÎŞ·ûºÅÕûÊı×ª×Ö½ÚÊı×é
+    // 32ä½æ— ç¬¦å·æ•´æ•°è½¬å­—èŠ‚æ•°ç»„
     void wordToBytes(uint32_t word, uint8_t* bytes);
 };
 
