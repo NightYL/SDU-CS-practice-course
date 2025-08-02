@@ -2,7 +2,7 @@
 #include <cstring>
 #include <stdexcept>
 
-// SºĞ¶¨Òå
+// Sç›’å®šä¹‰
 const uint8_t SM4::Sbox[256] = {
     0xd6,0x90,0xe9,0xfe,0xcc,0xe1,0x3d,0xb7,0x16,0xb6,0x14,0xc2,0x28,0xfb,0x2c,0x05,
     0x2b,0x67,0x9a,0x76,0x2a,0xbe,0x04,0xc3,0xaa,0x44,0x13,0x26,0x49,0x86,0x06,0x99,
@@ -22,32 +22,12 @@ const uint8_t SM4::Sbox[256] = {
     0x18,0xf0,0x7d,0xec,0x3a,0xdc,0x4d,0x20,0x79,0xee,0x5f,0x3e,0xd7,0xcb,0x39,0x48
 };
 
-// ·´SºĞ¶¨Òå
-const uint8_t SM4::invSbox[256] = {
-    0x9e,0xa8,0x1a,0x3f,0x78,0x2f,0x1b,0x59,0xe4,0x0a,0x49,0xfb,0x63,0x0c,0x2e,0x58,
-    0x20,0xc6,0x07,0x93,0x77,0x5f,0x5b,0x3e,0x8d,0x19,0x76,0x23,0xd3,0x02,0x94,0xa6,
-    0xc8,0x43,0x8f,0xd4,0x30,0x46,0x1c,0x06,0x5c,0x24,0xe0,0x7d,0x85,0x0e,0x71,0x62,
-    0x4c,0x15,0x69,0xf9,0x0f,0x39,0x7b,0x6d,0x48,0xe2,0x35,0xc3,0x00,0x66,0x25,0xc0,
-    0x53,0x42,0x38,0x90,0x13,0x83,0x4e,0x6e,0x7c,0x1d,0x26,0x80,0x03,0x9d,0x5d,0xe7,
-    0x67,0x1f,0x31,0x8e,0x45,0x99,0xe3,0xf8,0x04,0x7a,0x27,0xc2,0x5e,0x9b,0x12,0x37,
-    0xf7,0x6b,0x29,0x84,0x95,0x3b,0x40,0x54,0x01,0xc7,0x72,0xa9,0x65,0x2a,0xd2,0x14,
-    0xec,0x55,0x3c,0x73,0x97,0x08,0x4b,0x61,0xf6,0x8a,0x22,0x10,0xc4,0x9f,0xe5,0xa0,
-    0x75,0x6f,0x3d,0x56,0x09,0x86,0x21,0xf0,0xca,0x11,0x4a,0x92,0xe6,0xd0,0xab,0x50,
-    0x33,0x7f,0x60,0x87,0x05,0x9c,0x2b,0xf1,0xcb,0x1e,0x4d,0x91,0xe1,0xcf,0x52,0x32,
-    0x8c,0x68,0x2c,0x7e,0x0d,0x98,0x51,0xf3,0xcc,0x16,0x47,0x96,0xe8,0xd1,0xaa,0x34,
-    0x89,0x6a,0x2d,0x79,0x0b,0x9a,0x57,0xf2,0xcd,0x17,0x44,0x9e,0xe9,0xd5,0xac,0x36,
-    0x82,0x6c,0x28,0x74,0x0f,0x9b,0x5a,0xf4,0xce,0x18,0x41,0x9f,0xea,0xd6,0xad,0x3a,
-    0x81,0x6d,0x2f,0x70,0x0c,0x9c,0x5b,0xf5,0xcf,0x19,0x40,0x9a,0xeb,0xd7,0xae,0x3b,
-    0x80,0x6e,0x20,0x71,0x0d,0x9d,0x5c,0xf6,0xd0,0x1a,0x4f,0x9b,0xec,0xd8,0xaf,0x3c,
-    0x8f,0x6f,0x21,0x72,0x0e,0x9e,0x5d,0xf7,0xd1,0x1b,0x4e,0x9c,0xed,0xd9,0xb0,0x3d
-};
-
-// ÏµÍ³²ÎÊıFK
+// ç³»ç»Ÿå‚æ•°FK
 const uint32_t SM4::FK[4] = {
     0xa3b1bac6, 0x56aa3350, 0x677d9197, 0xb27022dc
 };
 
-// ¹Ì¶¨²ÎÊıCK
+// å›ºå®šå‚æ•°CK
 const uint32_t SM4::CK[32] = {
     0x00070e15, 0x1c232a31, 0x383f464d, 0x545b6269,
     0x70777e85, 0x8c939aa1, 0xa8afb6bd, 0xc4cbd2d9,
@@ -59,48 +39,48 @@ const uint32_t SM4::CK[32] = {
     0x10171e25, 0x2c333a41, 0x484f565d, 0x646b7279
 };
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 SM4::SM4(const uint8_t* key, Mode mode) : mode(mode) {
-    // ³õÊ¼»¯IV
+    // åˆå§‹åŒ–IV
     memset(iv, 0, 16);
 
-    // ÃÜÔ¿À©Õ¹
+    // å¯†é’¥æ‰©å±•
     keyExpansion(key);
 }
 
-// ÉèÖÃ³õÊ¼ÏòÁ¿
+// è®¾ç½®åˆå§‹å‘é‡
 void SM4::setIV(const uint8_t* iv) {
     memcpy(this->iv, iv, 16);
 }
 
-// ÃÜÔ¿À©Õ¹
+// å¯†é’¥æ‰©å±•
 void SM4::keyExpansion(const uint8_t* key) {
     uint32_t K[36];
 
-    // ½«ÃÜÔ¿×ª»»Îª4¸ö32Î»×Ö
+    // å°†å¯†é’¥è½¬æ¢ä¸º4ä¸ª32ä½å­—
     K[0] = bytesToWord(key) ^ FK[0];
     K[1] = bytesToWord(key + 4) ^ FK[1];
     K[2] = bytesToWord(key + 8) ^ FK[2];
     K[3] = bytesToWord(key + 12) ^ FK[3];
 
-    // Éú³É32¸öÂÖÃÜÔ¿
+    // ç”Ÿæˆ32ä¸ªè½®å¯†é’¥
     for (int i = 0; i < 32; i++) {
         K[i + 4] = K[i] ^ TPrime(K[i + 1] ^ K[i + 2] ^ K[i + 3] ^ CK[i]);
         rk[i] = K[i + 4];
     }
 }
 
-// ÂÖº¯ÊıF
+// è½®å‡½æ•°F
 uint32_t SM4::F(uint32_t X0, uint32_t X1, uint32_t X2, uint32_t X3, uint32_t rk) {
     return X0 ^ T(X1 ^ X2 ^ X3 ^ rk);
 }
 
-// ·ÇÏßĞÔ±ä»»¦Ó
+// éçº¿æ€§å˜æ¢Ï„
 uint32_t SM4::tau(uint32_t a) {
     uint8_t bytes[4];
     wordToBytes(a, bytes);
 
-    // ¶ÔÃ¿¸ö×Ö½ÚÓ¦ÓÃSºĞ±ä»»
+    // å¯¹æ¯ä¸ªå­—èŠ‚åº”ç”¨Sç›’å˜æ¢
     bytes[0] = S(bytes[0]);
     bytes[1] = S(bytes[1]);
     bytes[2] = S(bytes[2]);
@@ -109,93 +89,88 @@ uint32_t SM4::tau(uint32_t a) {
     return bytesToWord(bytes);
 }
 
-// ÏßĞÔ±ä»»L
+// çº¿æ€§å˜æ¢L
 uint32_t SM4::L(uint32_t b) {
     return b ^
-        ((b << 2) | (b >> 30)) ^  // Ñ­»·×óÒÆ2Î»
-        ((b << 10) | (b >> 22)) ^ // Ñ­»·×óÒÆ10Î»
-        ((b << 18) | (b >> 14)) ^ // Ñ­»·×óÒÆ18Î»
-        ((b << 24) | (b >> 8));   // Ñ­»·×óÒÆ24Î»
+        ((b << 2) | (b >> 30)) ^  // å¾ªç¯å·¦ç§»2ä½
+        ((b << 10) | (b >> 22)) ^ // å¾ªç¯å·¦ç§»10ä½
+        ((b << 18) | (b >> 14)) ^ // å¾ªç¯å·¦ç§»18ä½
+        ((b << 24) | (b >> 8));   // å¾ªç¯å·¦ç§»24ä½
 }
 
-// ÏßĞÔ±ä»»L'
+// çº¿æ€§å˜æ¢L'
 uint32_t SM4::LPrime(uint32_t b) {
-    return b ^ 
-        ((b << 13) | (b >> 19)) ^  // Ñ­»·×óÒÆ13Î»
-        ((b << 23) | (b >> 9));    // Ñ­»·×óÒÆ23Î»
+    return b ^
+        ((b << 13) | (b >> 19)) ^  // å¾ªç¯å·¦ç§»13ä½
+        ((b << 23) | (b >> 9));    // å¾ªç¯å·¦ç§»23ä½
 }
 
-// ·ÇÏßĞÔ±ä»»S
+// éçº¿æ€§å˜æ¢S
 uint8_t SM4::S(uint8_t inch) {
     return Sbox[inch];
 }
 
-// ·´·ÇÏßĞÔ±ä»»S
-uint8_t SM4::invS(uint8_t inch) {
-    return invSbox[inch];
-}
-
-// 32Î»Òì»ò·ÇÏßĞÔ±ä»»T
+// 32ä½å¼‚æˆ–éçº¿æ€§å˜æ¢T
 uint32_t SM4::T(uint32_t a) {
     return L(tau(a));
 }
 
-// 32Î»Òì»ò·ÇÏßĞÔ±ä»»T'
+// 32ä½å¼‚æˆ–éçº¿æ€§å˜æ¢T'
 uint32_t SM4::TPrime(uint32_t a) {
     return LPrime(tau(a));
 }
 
-// ¼ÓÃÜµ¥×éÊı¾İ
+// åŠ å¯†å•ç»„æ•°æ®
 void SM4::encryptBlock(const uint8_t* input, uint8_t* output) {
     uint32_t X[36];
 
-    // ½«ÊäÈë×ª»»Îª4¸ö32Î»×Ö
+    // å°†è¾“å…¥è½¬æ¢ä¸º4ä¸ª32ä½å­—
     X[0] = bytesToWord(input);
     X[1] = bytesToWord(input + 4);
     X[2] = bytesToWord(input + 8);
     X[3] = bytesToWord(input + 12);
 
-    // 32ÂÖµü´ú
+    // 32è½®è¿­ä»£
     for (int i = 0; i < 32; i++) {
         X[i + 4] = F(X[i], X[i + 1], X[i + 2], X[i + 3], rk[i]);
     }
 
-    // Êä³ö±ä»»
+    // è¾“å‡ºå˜æ¢
     uint32_t outputWords[4] = { X[35], X[34], X[33], X[32] };
 
-    // ×ª»»Îª×Ö½ÚÊı×é
+    // è½¬æ¢ä¸ºå­—èŠ‚æ•°ç»„
     wordToBytes(outputWords[0], output);
     wordToBytes(outputWords[1], output + 4);
     wordToBytes(outputWords[2], output + 8);
     wordToBytes(outputWords[3], output + 12);
 }
 
-// ½âÃÜµ¥×éÊı¾İ
+// è§£å¯†å•ç»„æ•°æ®
 void SM4::decryptBlock(const uint8_t* input, uint8_t* output) {
     uint32_t X[36];
 
-    // ½«ÊäÈë×ª»»Îª4¸ö32Î»×Ö
+    // å°†è¾“å…¥è½¬æ¢ä¸º4ä¸ª32ä½å­—
     X[0] = bytesToWord(input);
     X[1] = bytesToWord(input + 4);
     X[2] = bytesToWord(input + 8);
     X[3] = bytesToWord(input + 12);
 
-    // 32ÂÖµü´ú£¬Ê¹ÓÃÄæĞòÂÖÃÜÔ¿
+    // 32è½®è¿­ä»£ï¼Œä½¿ç”¨é€†åºè½®å¯†é’¥
     for (int i = 0; i < 32; i++) {
         X[i + 4] = F(X[i], X[i + 1], X[i + 2], X[i + 3], rk[31 - i]);
     }
 
-    // Êä³ö±ä»»
+    // è¾“å‡ºå˜æ¢
     uint32_t outputWords[4] = { X[35], X[34], X[33], X[32] };
 
-    // ×ª»»Îª×Ö½ÚÊı×é
+    // è½¬æ¢ä¸ºå­—èŠ‚æ•°ç»„
     wordToBytes(outputWords[0], output);
     wordToBytes(outputWords[1], output + 4);
     wordToBytes(outputWords[2], output + 8);
     wordToBytes(outputWords[3], output + 12);
 }
 
-// ×Ö½ÚÊı×é×ª32Î»ÎŞ·ûºÅÕûÊı
+// å­—èŠ‚æ•°ç»„è½¬32ä½æ— ç¬¦å·æ•´æ•°
 uint32_t SM4::bytesToWord(const uint8_t* bytes) {
     return (static_cast<uint32_t>(bytes[0]) << 24) |
         (static_cast<uint32_t>(bytes[1]) << 16) |
@@ -203,7 +178,7 @@ uint32_t SM4::bytesToWord(const uint8_t* bytes) {
         static_cast<uint32_t>(bytes[3]);
 }
 
-// 32Î»ÎŞ·ûºÅÕûÊı×ª×Ö½ÚÊı×é
+// 32ä½æ— ç¬¦å·æ•´æ•°è½¬å­—èŠ‚æ•°ç»„
 void SM4::wordToBytes(uint32_t word, uint8_t* bytes) {
     bytes[0] = static_cast<uint8_t>((word >> 24) & 0xFF);
     bytes[1] = static_cast<uint8_t>((word >> 16) & 0xFF);
@@ -211,25 +186,25 @@ void SM4::wordToBytes(uint32_t word, uint8_t* bytes) {
     bytes[3] = static_cast<uint8_t>(word & 0xFF);
 }
 
-// ¼ÓÃÜº¯Êı
+// åŠ å¯†å‡½æ•°
 int SM4::encrypt(const uint8_t* plaintext, int length, uint8_t* ciphertext) {
     if (length <= 0 || !plaintext || !ciphertext) {
         throw std::invalid_argument("Invalid input parameters");
     }
 
-    int blockCount = (length + 15) / 16;  // ¼ÆËãĞèÒªµÄ¿éÊı
+    int blockCount = (length + 15) / 16;  // è®¡ç®—éœ€è¦çš„å—æ•°
     uint8_t inputBlock[16] = { 0 };
     uint8_t outputBlock[16] = { 0 };
     uint8_t currentIV[16];
     memcpy(currentIV, iv, 16);
 
     for (int i = 0; i < blockCount; i++) {
-        // ¸´ÖÆÊı¾İµ½ÊäÈë¿é
+        // å¤åˆ¶æ•°æ®åˆ°è¾“å…¥å—
         int bytesToCopy = (i == blockCount - 1) ? (length % 16) : 16;
         if (bytesToCopy == 0) bytesToCopy = 16;
         memcpy(inputBlock, plaintext + i * 16, bytesToCopy);
 
-        // Èç¹ûÊÇ×îºóÒ»¿éÇÒĞèÒªÌî³ä
+        // å¦‚æœæ˜¯æœ€åä¸€å—ä¸”éœ€è¦å¡«å……
         if (i == blockCount - 1 && length % 16 != 0) {
             uint8_t padValue = 16 - (length % 16);
             for (int j = bytesToCopy; j < 16; j++) {
@@ -237,21 +212,21 @@ int SM4::encrypt(const uint8_t* plaintext, int length, uint8_t* ciphertext) {
             }
         }
 
-        // ¸ù¾İÄ£Ê½´¦Àí
+        // æ ¹æ®æ¨¡å¼å¤„ç†
         if (mode == CBC) {
-            // CBCÄ£Ê½ĞèÒªÓëIVÒì»ò
+            // CBCæ¨¡å¼éœ€è¦ä¸IVå¼‚æˆ–
             for (int j = 0; j < 16; j++) {
                 inputBlock[j] ^= currentIV[j];
             }
         }
 
-        // ¼ÓÃÜµ±Ç°¿é
+        // åŠ å¯†å½“å‰å—
         encryptBlock(inputBlock, outputBlock);
 
-        // ¸´ÖÆ½á¹ûµ½Êä³ö
+        // å¤åˆ¶ç»“æœåˆ°è¾“å‡º
         memcpy(ciphertext + i * 16, outputBlock, 16);
 
-        // ¸üĞÂIV£¨CBCÄ£Ê½£©
+        // æ›´æ–°IVï¼ˆCBCæ¨¡å¼ï¼‰
         if (mode == CBC) {
             memcpy(currentIV, outputBlock, 16);
         }
@@ -260,13 +235,13 @@ int SM4::encrypt(const uint8_t* plaintext, int length, uint8_t* ciphertext) {
     return blockCount * 16;
 }
 
-// ½âÃÜº¯Êı
+// è§£å¯†å‡½æ•°
 int SM4::decrypt(const uint8_t* ciphertext, int length, uint8_t* plaintext) {
     if (length <= 0 || length % 16 != 0 || !ciphertext || !plaintext) {
         throw std::invalid_argument("Invalid input parameters");
     }
 
-    int blockCount = length / 16;  // ¼ÆËã¿éÊı
+    int blockCount = length / 16;  // è®¡ç®—å—æ•°
     uint8_t inputBlock[16] = { 0 };
     uint8_t outputBlock[16] = { 0 };
     uint8_t currentIV[16];
@@ -274,34 +249,34 @@ int SM4::decrypt(const uint8_t* ciphertext, int length, uint8_t* plaintext) {
     uint8_t prevBlock[16];
 
     for (int i = 0; i < blockCount; i++) {
-        // ¸´ÖÆµ±Ç°¿é
+        // å¤åˆ¶å½“å‰å—
         memcpy(inputBlock, ciphertext + i * 16, 16);
         memcpy(prevBlock, inputBlock, 16);
 
-        // ½âÃÜµ±Ç°¿é
+        // è§£å¯†å½“å‰å—
         decryptBlock(inputBlock, outputBlock);
 
-        // ¸ù¾İÄ£Ê½´¦Àí
+        // æ ¹æ®æ¨¡å¼å¤„ç†
         if (mode == CBC) {
-            // CBCÄ£Ê½ĞèÒªÓëIVÒì»ò
+            // CBCæ¨¡å¼éœ€è¦ä¸IVå¼‚æˆ–
             for (int j = 0; j < 16; j++) {
                 outputBlock[j] ^= currentIV[j];
             }
-            // ¸üĞÂIVÎªÇ°Ò»¸öÃÜÎÄ¿é
+            // æ›´æ–°IVä¸ºå‰ä¸€ä¸ªå¯†æ–‡å—
             memcpy(currentIV, prevBlock, 16);
         }
 
-        // ¸´ÖÆ½á¹ûµ½Êä³ö
+        // å¤åˆ¶ç»“æœåˆ°è¾“å‡º
         memcpy(plaintext + i * 16, outputBlock, 16);
     }
 
-    // ´¦ÀíÌî³ä
+    // å¤„ç†å¡«å……
     uint8_t padValue = plaintext[length - 1];
     if (padValue > 16) {
         throw std::runtime_error("Invalid padding");
     }
 
-    // ÑéÖ¤Ìî³ä
+    // éªŒè¯å¡«å……
     for (int i = length - padValue; i < length; i++) {
         if (plaintext[i] != padValue) {
             throw std::runtime_error("Invalid padding");
