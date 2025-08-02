@@ -5,7 +5,7 @@ using namespace std;
 #include <cstring>
 #include <chrono>
 
-// 打印字节数组
+// 鎵撳嵃瀛楄妭鏁扮粍
 void printBytes(const uint8_t* data, int length, const std::string& label) {
     std::cout << label << ": ";
     for (int i = 0; i < length; i++) {
@@ -16,7 +16,7 @@ void printBytes(const uint8_t* data, int length, const std::string& label) {
 
 int main() {
     try {
-        // 测试数据
+        // 娴嬭瘯鏁版嵁
         const uint8_t key[16] = { 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
                                 0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10 };
         const uint8_t iv[16] = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
@@ -32,9 +32,9 @@ int main() {
         };
         size_t plaintext_length = sizeof(plaintext) / sizeof(plaintext[0]);
 
-        // 输出长度
-        printf("plaintext 的长度为 %zu 字节\n", plaintext_length);
-        printf("明文:\t");
+        // 杈撳嚭闀垮害
+        printf("plaintext 鐨勯暱搴︿负 %zu 瀛楄妭\n", plaintext_length);
+        printf("鏄庢枃:\t");
         for (size_t i = 0; i < plaintext_length; i++) {
             if ((i % 16 == 0) && (i != 0))
             {
@@ -44,13 +44,13 @@ int main() {
             printf("%2X ", plaintext[i]);
         }
         cout << endl;
-        // ECB模式的SM4
+        // ECB妯″紡鐨凷M4
         SM4 sm4_ecb(key, SM4::ECB);
         uint8_t* ciphertext_ecb = new uint8_t[plaintext_length];
 
-        int padding_len=sm4_ecb.encrypt(plaintext, plaintext_length,ciphertext_ecb);
+        int padding_len = sm4_ecb.encrypt(plaintext, plaintext_length, ciphertext_ecb);
 
-        printf("密文:\t");
+        printf("瀵嗘枃:\t");
         for (size_t i = 0; i < padding_len; i++) {
             if ((i % 16 == 0) && (i != 0))
             {
@@ -62,9 +62,9 @@ int main() {
         }
         cout << endl;
         uint8_t* de_ecb = new uint8_t[padding_len];
-        sm4_ecb.decrypt(ciphertext_ecb, padding_len,de_ecb);
+        sm4_ecb.decrypt(ciphertext_ecb, padding_len, de_ecb);
 
-        printf("解密:\t");
+        printf("瑙ｅ瘑:\t");
         for (size_t i = 0; i < padding_len; i++) {
             if ((i % 16 == 0) && (i != 0))
             {
@@ -77,7 +77,7 @@ int main() {
         cout << endl;
     }
     catch (const std::exception& e) {
-        std::cerr << "错误: " << e.what() << std::endl;
+        std::cerr << "閿欒: " << e.what() << std::endl;
         return 1;
     }
 
