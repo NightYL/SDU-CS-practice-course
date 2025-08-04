@@ -93,14 +93,15 @@ def extract_watermark_rg(watermarked_path, watermark_path, output_path):
 if __name__ == "__main__":
     # 嵌入水印
     watermarked_img = embed_watermark_rg(
-        original_path="./source/Pic.png",  # 原始图像路径
-        watermark_path="./source/shuiyin.png",  # 水印图像路径
-        output_path="watermarked_rg.png"  # 输出图像路径
+        original_path="your_original_path",  # 原始图像路径
+        watermark_path="your_watermark_path",  # 水印图像路径
+        output_path="watermarked.png"  # 输出图像路径
     )
 
     extracted_img = extract_watermark_rg(
-        watermarked_path="watermarked_rg.png",
-        watermark_path="./source/shuiyin.png",
+        watermarked_path="watermarked.png",
+        watermark_path="your_watermark_path",
         output_path="extracted_watermark_rg.png"
     )
+
 
