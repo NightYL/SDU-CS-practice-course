@@ -150,12 +150,13 @@ if __name__ == "__main__":
 
     # 嵌入水印
     embed_ascii_watermark(
-        original_path="./source/Pic.png",
+        original_path = "your_original_path",
         text=secret_text,
-        output_path="ascii_watermarked.png"
+        output_path = "ascii_watermarked.png"
     )
 
     # 提取水印
     extracted_text = extract_ascii_watermark("ascii_watermarked.png")
     print("提取的文本内容：")
     print(extracted_text)
+
