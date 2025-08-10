@@ -4,7 +4,7 @@
 
 **Google Password Checkup** 的目标是：**在不泄露双方原始数据的情况下，检查用户的密码（或账户）是否出现在已知泄露数据集中**。
 
-核心是一个**私有集合交集和（Private Set Intersection-Sum, PSI-Sum）**协议：
+核心是一个私有集合交集和（Private Set Intersection-Sum, PSI-Sum）协议：
 
 - 双方都有一组字符串（如账户标识符）
 - 另一方的集合元素还带有一个整数值（如泄露次数、风险分数）
