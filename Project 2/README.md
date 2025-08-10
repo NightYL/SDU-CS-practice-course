@@ -122,3 +122,11 @@ w = I'(i,j) mod 2
 ## 水印图片
 
 ![原始图片](./watermark.png)
+
+## 嵌入水印
+
+![原始图片](./watermarked1.png)
+
+## 提取水印
+
+![原始图片](./watermarked1.png)
