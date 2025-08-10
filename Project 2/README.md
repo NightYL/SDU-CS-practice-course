@@ -131,3 +131,6 @@ w = I'(i,j) mod 2
 
 ![原始图片](./extracted_watermark1.png)
 
+## 攻击测试
+
+![原始图片](./P2-test.png)
