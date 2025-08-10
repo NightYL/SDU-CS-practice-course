@@ -116,9 +116,9 @@ def paillier_randomize(pk:PaillierPublicKey, c):
 
 # 构造 DDH 群：取素数 P，使用 Z_P^* 作为乘法群
 def setup_group(bits=256):
-    """ 生成群参数（演示用） """
+    """ 生成群参数 """
     P = gen_prime(bits)
-    # 选取生成元 g（简单扫描）
+    # 选取生成元 g
     for cand in range(2, 1000):
         if pow(cand, (P-1)//2, P) != 1:
             return P, cand
@@ -205,3 +205,4 @@ if __name__ == "__main__":
     print("交集标识符(来自P2):", out["intersection_keys"])
     print("交集索引(P2中的位置):", out["intersection_indices_in_P2"])
     print("交集值的和(P2解密):", out["intersection_sum_decrypted_by_P2"])
+
