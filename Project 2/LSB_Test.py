@@ -439,11 +439,6 @@ if __name__ == "__main__":
     # 创建测试实例
     tester = LSBRobustnessTest()
 
-    # 运行综合测试
-    # 请确保有以下文件：
-    # - "./source/Pic.png" (原始图像)
-    # - "./source/watermark.png" (水印图像)
-
     try:
         results = tester.run_comprehensive_test(
             original_image_path="./source/Pic.png",
@@ -459,4 +454,5 @@ if __name__ == "__main__":
         print("- ./source/Pic.png (原始图像)")
         print("- ./source/watermark.png (水印图像)")
     except Exception as e:
+
         print(f"测试过程中出现错误: {e}")
