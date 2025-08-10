@@ -129,4 +129,5 @@ w = I'(i,j) mod 2
 
 ## 提取水印
 
-![原始图片](./watermarked1.png)
+![原始图片](./extracted_watermark1.png)
+
